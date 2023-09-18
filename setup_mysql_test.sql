@@ -4,7 +4,7 @@ CREATE DATABASE IF NOT EXISTS hbnb_test_db;
 -- database to use
 USE hbnb_test_db;
 -- create user 
-CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY '1Ab@23456';
+CREATE USER IF NOT EXISTS 'hbnb_test'@'localhost' IDENTIFIED BY 'hbnb_test_pwd';
 -- set priviliges
 GRANT ALL PRIVILEGES ON hbnb_test_db.* TO 'hbnb_test'@'localhost';
 -- grant select privlige
