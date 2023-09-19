@@ -9,7 +9,7 @@ from sqlalchemy import Column, String, Integer
 
 
 if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        Base = declarative_base
+        Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
@@ -20,7 +20,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-       
+
 
         if not kwargs:
             from models import storage
