@@ -1,8 +1,11 @@
 #!/usr/bin/python3
+"""Database storage switch"""
 from sqlalchemy import create_engine, MetaData
 from os import getenv
 
+
 class DBStorage:
+    """db data storage"""
     __engine = None
     __session = None
 
@@ -20,6 +23,7 @@ class DBStorage:
             metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
+        """returns all a key and val"""
         db_dict = {}
         models = self.models
         if cls:
@@ -35,16 +39,21 @@ class DBStorage:
         return db_dict
     
     def new(self, obj):
+        """adds new obj """
         self.__session.add(obj)
 
     def save(self):
+        """commits changes"""
         self.__session.commit()
 
     def delete(self, obj=None):
+        """deletes objects"""
         if obj:
             self.__session.delete(obj)
 
     def reload():
+        """reloads the databse"""
+
         Base.MetaData.create_all
         Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(Session)
