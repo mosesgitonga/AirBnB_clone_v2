@@ -5,16 +5,15 @@ from datetime import datetime
 from os import getenv
 import sqlalchemy
 from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, DateTime
 
 
-if os.getenv('HBNB_TYPE_STORAGE') == 'db':
-        Base = declarative_base
+Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
     if getenv('HBNB_TYPE_STORAGE') == 'db':
-        id = Column(String(60), primarykey=True, nullable=False)
+        id = Column(String(60), primary_key=True, nullable=False)
         created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
         updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
@@ -64,7 +63,6 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        for key, val in dictionary.items():
-            if key == '_sa_instance_state':
-                del dictionary[key]
+        if "_sa_instance_state" in my_dict.keys():
+            del(my_dict["_sa_instance_state"])
         return dictionary
