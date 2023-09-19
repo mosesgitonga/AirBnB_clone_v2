@@ -6,6 +6,6 @@ if getenv('HBNB_TYPE_STORAGE') == 'db':
     from db_storage import DBStorage
     storage = DBStorage()
     storage.reload()
-else
+else:
     storage = FileStorage()
     storage.reload()
