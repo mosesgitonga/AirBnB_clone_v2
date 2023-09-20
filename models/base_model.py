@@ -9,15 +9,12 @@ from sqlalchemy import Column, String, Integer, DateTime
 
 
 Base = declarative_base()
-if getenv('HBNB_TYPE_STORAGE') == 'db':
-        Base = declarative_base()
 
 class BaseModel:
     """A base class for all hbnb models"""
-    if getenv('HBNB_TYPE_STORAGE') == 'db':
-        id = Column(String(60), primary_key=True, nullable=False)
-        created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-        updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    id = Column(String(60), primary_key=True, nullable=False)
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
@@ -51,7 +48,7 @@ class BaseModel:
         """Updates updated_at with current time when instance is changed"""
         from models import storage
         self.updated_at = datetime.now()
-        storage.new()
+        storage.new(self)
         storage.save()
     def delete(self):
         from models import storage
@@ -65,6 +62,6 @@ class BaseModel:
                           (str(type(self)).split('.')[-1]).split('\'')[0]})
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        if "_sa_instance_state" in my_dict.keys():
-            del(my_dict["_sa_instance_state"])
+        if "_sa_instance_state" in dictionary.keys():
+            del(dictionary["_sa_instance_state"])
         return dictionary
