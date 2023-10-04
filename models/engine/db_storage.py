@@ -8,6 +8,7 @@ from models.user import User
 from models.base_model import BaseModel, Base
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+
 name_and_class = {
     'User':User,
     'State': State,
@@ -34,7 +35,7 @@ class DBStorage:
     def all(self, cls=None):
         """returns all a key and val"""
         if not self.__session:
-            storage.reload()
+            self.reload()
 
         objects = {}
         if type(cls) == str:
