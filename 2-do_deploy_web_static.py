@@ -1,46 +1,49 @@
 #!/usr/bin/python3
-"""
-Fabric script that generates a .tgz archive from the contents of the
-web_static folder of your AirBnB Clone repo, using the function do_pack.
-"""
-from fabric.api import local, put, run
-from datetime import datetime
-from os.path import exists
+"""a Fabric script (based on the file 1-pack_web_static.py) that 
+distributes an archive to your web servers, using the function do_deploy"""
 
-
-env.hosts = ['35.196.4.24', '35.190.128.47']
-
-
-def do_pack():
-    """
-    Pack webstatic dir into a .tgz archive
-    """
-    current_time = datetime.now().strftime("%Y%m%d%H%M%S")
-    local("mkdir -p versions")
-    name = "versions/web_static_{}.tgz".format(current_time)
-    tgz_file = local("tar -cvzf {} web_static".format(name))
-    return tgz_file
+import os.path
+from fabric.api import env
+from fabric.api import put
+from fabric.api import run
+env.hosts = ["54.175.146.62", "34.224.94.116"]
 
 
 def do_deploy(archive_path):
     """
-    Distributes an archive to your web servers
+    Distributing archive to the web server.
     """
-    if exists(archive_path):
-        try:
-            put(archive_path, "/tmp/")
-            tgz_file = archive_path.split("/")[1].split(".")[0]
-            remote_path = "/data/web_static/releases/{}".format(tgz_file)
-            run("mkdir {}".format(remote_path))
-            run("tar -zxvf /tmp/{}.tgz --directory {}/"
-                .format(tgz_file, remote_path))
-            run("rm /tmp/{}".format(archive_path.split("/")[1]))
-            run("rm /data/web_static/current")
-            run("ln -sf /data/web_static/releases/{}\
-                 /data/web_static/current".format(tgz_file))
-            run("mv /data/web_static/releases/{}/web_static/*\
-                 /data/web_static/current/".format(tgz_file))
-            run("rm -rf /data/web_static/releases/{}/web_static/"
-                .format(tgz_file))
-            return True
-    return False
+    if os.path.isfile(archive_path) is False:
+        return False
+
+    archive = archive_path.split("/")[-1]
+    extensionLess = archive.split(".")[0]
+
+    if put(archive_path, "/tmp/{}".format(archive)).failed is True:
+        return False
+
+    if run("mkdir /data/web_static/releases/{}/".
+           format(extensionLess)).failed is True:
+        return False
+
+    if run("tar -xzf /tmp/{} -C /data/web_static/releases/{}/".
+           format(archive, extensionLess)).failed is True:
+        return False
+
+    if run("rm /tmp/{}".format(archive)).failed is True:
+        return False
+
+    if run("rm -rf /data/web_static/current/").failed is True:
+        return False
+
+    if run("mkdir /data/web_static/current/").failed is True:
+        return False
+
+    if run("ln -s /data/web_static/releases/{}/ /data/web_static/current/"
+           .format(extensionLess)).failed is True:
+        return False
+
+    if run("rm -rf /data/web_static/releases/{}/".
+           format(extensionLess)).failed is True:
+        return False
+    return True
