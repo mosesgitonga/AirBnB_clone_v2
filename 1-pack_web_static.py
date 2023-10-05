@@ -12,10 +12,9 @@ def do_pack():
     try:
         local("mkdir -p versions")
         now = datetime.now()
-
         year = now.year
         month = now.month
-        day = now.strftime("%d")
+        day = now.day
         hour = now.hour
         minute = now.day
         sec = now.second
