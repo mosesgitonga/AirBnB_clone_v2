@@ -13,12 +13,12 @@ def do_pack():
         local("mkdir -p versions")
         now = datetime.now()
 
-        year = now.strftime("%Y")
-        month = now.strftime("%m")
+        year = now.year
+        month = now.month
         day = now.strftime("%d")
-        hour = now.strftime("%H")
-        minute = now.strftime("%M")
-        sec = now.strftime("%S")
+        hour = now.hour
+        minute = now.day
+        sec = now.second
         archive_name = "web_static_{}{}{}{}{}{}.tgz".format(
                 year, month, day, hour, minute, sec
                 )
