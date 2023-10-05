@@ -7,7 +7,7 @@ from fabric,api import Connection, task, local
 from datetime import datetime
 
 @task
-def do_pack(c):
+def do_pack():
     """do_pack func to pack files in web_static"""
 
     local("mkdir -p versions")
