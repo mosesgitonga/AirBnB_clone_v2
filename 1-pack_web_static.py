@@ -11,17 +11,12 @@ def do_pack():
     try:
         local("mkdir -p versions")
         now = datetime.now()
-        year = now.year
-        month = now.month
-        day = now.day
-        hour = now.hour
-        minute = now.day
-        sec = now.second
+        
         archive_name = "web_static_{}{}{}{}{}{}.tgz".format(
-                year, month, day, hour, minute, sec)
+                now.year, now.month, now.day, now.hour, now.minute, now.second)
 
         local("tar -czvf versions/{} web_static").format(archive_name)
 
         return "versions/{}".format(archive_name)
-    except Exception as e:
+    except Exception:
         return None
