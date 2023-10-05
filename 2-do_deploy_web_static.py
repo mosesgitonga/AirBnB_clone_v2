@@ -24,6 +24,9 @@ def do_pack():
         return None
 
 def do_deploy(archive_path):
+    """
+    distributing the archive
+    """
     if os.exists(archive_path):
         archived_file = archive_path[9:]
         newest_version = "/data/web_static/releases/" + archived_file[:-4]
