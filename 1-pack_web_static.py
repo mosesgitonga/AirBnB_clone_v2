@@ -19,7 +19,12 @@ def do_pack():
     hour = now.strftime("%H") 
     minute =  now.strftime("%M")
     sec = now.strftime("%S")
-    archive_name = (f"web_static_{year}{month}{day}{hour}{minute}{sec}.tgz")
+    archive_name = (
+        "web_static_{}{}{}{}{}{}.tgz".format(
+            year, month, day, hour, minute, sec)
+            )
 
-    local(f"tar -czvf versions/{archive_name} web_static .")
-    return f"versions/{archive_name}"
+    local(
+        "tar -czvf versions/{} web_static ."
+        ).format(archive_name)
+    return "versions/{}".format(archive_name)
