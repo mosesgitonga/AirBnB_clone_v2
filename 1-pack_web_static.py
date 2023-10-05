@@ -19,9 +19,10 @@ def do_pack():
         minute = now.day
         sec = now.second
         archive_name = "web_static_{}{}{}{}{}{}.tgz".format(
-                year, month, day, hour, minute, sec
-                )
+                year, month, day, hour, minute, sec)
+
         local("tar -czvf versions/{} web_static").format(archive_name)
+
         return "versions/{}".format(archive_name)
     except Exception as e:
         print(f"{}".format(e))
