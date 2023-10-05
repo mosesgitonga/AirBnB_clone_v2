@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""a Fabric script that generates a .tgz archive from
- the contents of the web_static folder of my AirBnB 
- Clone repo, using the function do_pack"""
+#a Fabric script that generates a .tgz archive from the contents of the
+# web_static folder of your AirBnB Clone repo, using the function do_pack
 
 from fabric,api import Connection, task, local
 #from collections.abc import Mapping
