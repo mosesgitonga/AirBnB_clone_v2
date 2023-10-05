@@ -1,9 +1,9 @@
 #!/usr/bin/python3
-#a Fabric script that generates a .tgz archive from the contents of the
-# web_static folder of your AirBnB Clone repo, using the function do_pack
+"""a Fabric script that generates a .tgz archive from the contents of the
+ web_static folder of your AirBnB Clone repo, using the function do_pack"""
 
 from fabric.api import local
-#from collections.abc import Mapping
+# from collections.abc import Mapping
 from datetime import datetime
 
 
@@ -16,8 +16,8 @@ def do_pack():
     year = now.strftime("%Y")
     month = now.strftime("%m")
     day = now.strftime("%d")
-    hour = now.strftime("%H") 
-    minute =  now.strftime("%M")
+    hour = now.strftime("%H")
+    minute = now.strftime("%M")
     sec = now.strftime("%S")
     archive_name = (
         "web_static_{}{}{}{}{}{}.tgz".format(
