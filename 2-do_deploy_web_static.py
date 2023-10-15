@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-script that distiributes an archive to your web servers
+cript that distiributes an archive to your web servers
 """
 
 from datetime import datetime
@@ -13,7 +13,7 @@ env.user = 'ubuntu'
 
 def do_pack():
     """
-        return the archive path if archive has generated correctly.
+    return the archive path if archive has generated correctly.
     """
 
     local("mkdir -p versions")
@@ -26,14 +26,16 @@ def do_pack():
     else:
         return None
 
-
     return False
+
+
 def do_deploy(archive_path):
     """
     Distribute archive.
     """
-    if os.path.exists(archive_path):
-        archived_file = archive_path[9:]
+    try:
+        if os.path.exists(archive_path):
+            archived_file = archive_path[9:]
         newest_version = "/data/web_static/releases/" + archived_file[:-4]
         archived_file = "/tmp/" + archived_file
         put(archive_path, "/tmp/")
@@ -53,5 +55,6 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
 
-    return False
+    except Exception:
+        return False
 
