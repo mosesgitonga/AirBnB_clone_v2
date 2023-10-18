@@ -47,14 +47,13 @@ def do_deploy(archive_path):
         run("sudo rm -rf {}/web_static/images".format(newest_version))
         run("sudo rm -rf {}/web_static/styles".format(newest_version))
 
-        run("sudo mv {}/web_static/* {}".format(newest_version, newest_version))
+        run("sudo mv {}/web_static/* {}".format(
+            newest_version, newest_version
+            ))
         run("sudo rm -rf {}/web_static".format(newest_version))
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s {} /data/web_static/current".format(newest_version))
-
         print("New version deployed!")
         return True
-
     except Exception:
         return False
-
