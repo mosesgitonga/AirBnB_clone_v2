@@ -54,7 +54,8 @@ def display_page(n):
     """
     display page in template
     """
-    
     return render_template('5-number.html')
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
