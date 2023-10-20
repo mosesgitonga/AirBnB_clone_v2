@@ -54,7 +54,7 @@ def display_page(n):
     """
     display page in template
     """
-    return render_template('5-number.html')
+    return render_template('5-number.html', n=n)
 
 
 if __name__ == '__main__':
