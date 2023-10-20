@@ -1,4 +1,8 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
+"""
+flask basics routes
+"""
+
 from flask import Flask
 app = Flask(__name__)
 
