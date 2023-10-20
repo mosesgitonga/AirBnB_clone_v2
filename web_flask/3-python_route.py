@@ -28,7 +28,7 @@ def is_fun(text):
     """
     start a flask web application
     """
-    text = text.replace('_',' ')
+    text = text.replace('_', ' ')
     return f"C {text}"
 
 
@@ -40,5 +40,7 @@ def python_is_cool(text):
     """
     text = text.replace('_', ' ')
     return f"Python {text}"
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
