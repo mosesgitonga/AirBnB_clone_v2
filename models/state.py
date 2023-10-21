@@ -14,6 +14,7 @@ class State(BaseModel, Base):
     else:
         @property
         def cities(self):
+            """cities"""
             from models import storage
             cities_in_state = []
             for city in storage.all('City').values():
