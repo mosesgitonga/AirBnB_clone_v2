@@ -4,6 +4,8 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Table, Column, String, ForeignKey, Integer, Float
 from os import getenv
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
+from models.review import Review
 
 
 class Place(BaseModel, Base):
@@ -21,8 +23,8 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=False)
         longitude = Column(Float, nullable=False)
         amenity_ids = []
-        reviews = relationship('Review', backref='place',
-                               cascade='all, delete, delete-orphan')
+        reviews = relationship('Review', back_populates='place')
+        city = relationship('City', back_populates='places')
     else:
         city_id = ""
         user_id = ""
@@ -67,7 +69,12 @@ class Place(BaseModel, Base):
                         amenity_ids.append(val)
 
 place_amenity = Table('place_amenity', Base.metadata,
+
                       Column('place_id', String(60), ForeignKey('places_id'),
+
+                      Column('place_id', String(60), ForeignKey('places.id'),
+
                              primary_key=True, nullable=False),
                       Column('amenity_id', String(60), ForeignKey('amenities.id'),
                              primary_key=True, nullable=False))
+                             )

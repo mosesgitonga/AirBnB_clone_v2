@@ -79,6 +79,8 @@ class FileStorage:
 
         storage.save()
     def close(self):
+        """desrializing json files to objects
+        """
         self.reload()
     
     
