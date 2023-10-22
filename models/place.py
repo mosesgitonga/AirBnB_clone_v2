@@ -15,7 +15,7 @@ class Place(BaseModel, Base):
         city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
-        description = Column(String(1024), nullable=False)
+        description = Column(String(1024), nullable=True)
         number_rooms = Column(Integer, nullable=False)
         number_bathrooms = Column(Integer, nullable=False)
         max_guest = Column(Integer, nullable=False)
@@ -25,6 +25,9 @@ class Place(BaseModel, Base):
         amenity_ids = []
         reviews = relationship('Review', back_populates='place')
         city = relationship('City', back_populates='places')
+        amenities = relationship("Amenity", secondary="place_amenity",
+                                 backref="place_amenities",
+                                 viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -70,11 +73,8 @@ class Place(BaseModel, Base):
 
 place_amenity = Table('place_amenity', Base.metadata,
 
-                      Column('place_id', String(60), ForeignKey('places_id'),
-
                       Column('place_id', String(60), ForeignKey('places.id'),
 
                              primary_key=True, nullable=False),
                       Column('amenity_id', String(60), ForeignKey('amenities.id'),
                              primary_key=True, nullable=False))
-                             )
