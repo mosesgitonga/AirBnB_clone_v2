@@ -1,17 +1,27 @@
 #!/usr/bin/python3
-#start web flask application
+"""
+starts a flask web application
+"""
+
 from flask import Flask, render_template
 from models import *
 from models import storage
 
 app = Flask(__name__)
-@app.route('/state_list', strict_slashes=False)
+@app.route('/states_list', strict_slashes=False)
 def state_list():
+    """
+    list state
+    """
     states = storage.all("State").values()
     return render_template("7-states_list.html", states=states)
 
+
 @app.teardown_appcontext
-def teardown_db():
+def teardown_db(err):
+    """
+    teardown
+    """
     storage.close()
 
 
